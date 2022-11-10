@@ -128,26 +128,22 @@ html {
 	
 	
 .accordion {
-	background-color:#25472e;
-	border-radius:5px;
-	border:3px solid #787878;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	padding:4px 4px;
-	text-decoration:none;
-	text-shadow:0px 0px 0px #fcfcfc;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
 }
-.accordion:hover {
-	background-color:#f21b1b;
+
+.active, .accordion:hover {
+  background-color: #ccc; 
 }
-.accordion:active {
-	position:relative;
-	top:1px;
-}
-	
+
 .panel {
   padding: 0 18px;
   display: none;
@@ -199,8 +195,9 @@ html {
      
 <p><h2>AndroidAPS</h2></p>
 
-<p class="accordion">מידע על האפליקציה</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<button class="accordion">Section 1</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>	
 	
 <p><a href="https://www.googleapis.com/drive/v3/files/18kLCcHhTRZf02WtORtEjIN71ChJKVd3z?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0" class="button">הורדה</a></p>
