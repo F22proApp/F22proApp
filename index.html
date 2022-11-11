@@ -128,6 +128,59 @@ html {
 
 	
 	
+	body {
+  font-family: helvetica;
+  font-size: 18px;
+  text-align: center;
+}
+.accordion {
+  display: inline-block;
+  text-align: left;
+  margin: 1%;
+  width: 70%;
+}
+.accordion:hover .accordion-content {
+  max-height: 300px;
+}
+.accordion-content {
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 1s;
+  background: #e5feff;
+  overflow: hidden;
+  max-height: 0;
+}
+.accordion-inner {
+  padding: 0 15px;
+}
+.accordion-toggle {
+  -webkit-transition: background 0.1s linear;
+  -moz-transition: background 0.1s linear;
+  -ms-transition: background 0.1s linear;
+  -o-transition: background 0.1s linear;
+  transition: background 0.1s linear;
+  background: #00b8c9;
+  border-radius: 3px;
+  color: #fff;
+  display: block;
+  font-size: 30px;
+  margin: 0 0 10px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+.accordion-toggle:hover {
+  background: #00727d;
+}
+	
+	
+	
+	
+	
+	
+	
        
 </style>
 
@@ -153,7 +206,21 @@ html {
 
 <div class="container">
      
-<p><h2>AndroidAPS</h2></p>	
+<p><h2>AndroidAPS</h2></p>
+		      
+		      
+		      <div class="accordion"> 
+  
+  <a href="#" class="accordion-toggle">Hover for height animate</a>
+  <div class="accordion-content">
+    <div class="accordion-inner"> 
+      <p>For animate the "height" of element with CSS Transitions you need use "max-height".</p>
+      <p>If use the "height: auto", the effect not works. Is necessary some value for the CSS create a CSS animate, and you can use "max-height" with a great value for emulate this effect.</p> 
+    </div>
+  </div>
+</div>
+		      
+		      
 		      
 <p><a href="https://www.googleapis.com/drive/v3/files/18kLCcHhTRZf02WtORtEjIN71ChJKVd3z?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0" class="button">הורדה</a></p>
 
