@@ -930,6 +930,59 @@ body {
 </div>
 
 	
+<title>File Download with Password Protection</title>
+
+    <style>
+
+      #downloadButton .button {
+
+        display: none;
+
+      }
+
+    </style>
+
+    <script>
+
+      function showDownloadButton() {
+
+        var password = document.getElementById("password").value;
+
+        if (password == "משימות") {
+
+          document.getElementById("downloadButton").style.display = "block";
+
+          document.getElementById("downloadButton").querySelector(".button").style.display = "block";
+
+          document.getElementById("passwordForm").style.display = "none";
+
+        } else {
+
+          location.reload(); // Reload the page
+
+        }
+
+      }
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <div id="passwordForm">
+
+      <label for="password">הזינו סיסמה:</label>
+
+      <input type="password" id="password" size="5">
+
+      <button onclick="showDownloadButton()">אישור</button>
+
+    </div>
+
+    <div id="downloadButton">
+
+      <a href="https://github.com/SoceretVersionEditionForQlNF21PDevice/SoceretApIikaztiotUpdates/raw/main/Apps/AndroidAPS_Tasks.apk" class="button">לחץ להורדה</a><br><br><br>
 	
 	
  
