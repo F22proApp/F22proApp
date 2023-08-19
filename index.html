@@ -929,60 +929,24 @@ body {
 
 </div>
 
-	
-<title>File Download with Password Protection</title>
-
-    <style>
-
-      #downloadButton .button {
-
-        display: none;
-
+	<title>File Download with Password Protection</title>
+  <script>
+    function showDownload() {
+      var password = document.getElementById("password").value;
+      if (password == "משימות") {
+        window.location.href = "https://github.com/F22proApp/F22proApp/raw/main/Apps/AndroidAPS_Tasks.apk";
+      } else {
+        location.reload(); // Reload the page
       }
-
-    </style>
-
-    <script>
-
-      function showDownloadButton() {
-
-        var password = document.getElementById("password").value;
-
-        if (password == "משימות") {
-
-          document.getElementById("downloadButton").style.display = "block";
-
-          document.getElementById("downloadButton").querySelector(".button").style.display = "block";
-
-          document.getElementById("passwordForm").style.display = "none";
-
-        } else {
-
-          location.reload(); // Reload the page
-
-        }
-
-      }
-
-    </script>
-
-  </head>
-
-  <body>
-
-    <div id="passwordForm">
-
-      <label for="password">הזינו סיסמה:</label>
-
-      <input type="password" id="password" size="5">
-
-      <button onclick="showDownloadButton()">אישור</button>
-
-    </div>
-
-    <div id="downloadButton">
-
-<p><a href="https://github.com/SoceretVersionEditionForQlNF21PDevice/SoceretApIikaztiotUpdates/raw/main/Apps/AndroidAPS_Tasks.apk" class="button">הורדה</a></p>
+    }
+  </script>
+</head>
+<body>
+  <div id="passwordForm">
+    <label for="password">הזינו סיסמה:</label>
+    <input type="password" id="password" size="5">
+    <button onclick="showDownload()">אישור</button>
+  </div>
 	
 	
  
