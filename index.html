@@ -194,15 +194,49 @@ body {
 
 <p><h2>עדכון אחרון בתאריך:</h2></p>
 
-<p>24.07.2023<p>
+<p>02.08.2023<p>
 
 <p><h2>אפליקציה/ות שעודכנה/ו:</h2></p>
 
-<p>מוחק אפליקציות<p>
+<p>AndroidAPS - האתר הרשמי<p>
 
 
 
 
+<div class="column">
+
+<div class="card">
+
+<img src="icon/androidaps.readthedocs.io_online.png" style="width="115" height="115">
+
+<div class="container">
+     
+<p><h2>AndroidAPS - האתר הרשמי</h2></p>
+		      
+<div class="accordion"> 
+  
+<a class="accordion-toggle">מידע על האפליקציה</a>
+<div class="accordion-content">
+<div class="accordion-inner"> 
+<p>כל המידע על הלופ כעת באתר הרשמי באפליקציה.</p>
+<p>שימו לב! האתר עדיין לא לגמרי מתורגם לעברית, אבל חלק גדול מהמידע הרלוונטי כבר בעברית.</p>
+</div>
+</div>
+</div>
+		      
+		      
+		      
+<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/androidaps.readthedocs.io_online.apk" class="button">הורדה</a></p>
+
+</div>
+
+</div>
+
+</div>
+	
+
+
+	
 <div class="column">
 
 <div class="card">
@@ -285,13 +319,16 @@ body {
 <div class="accordion-content">
 <div class="accordion-inner"> 
 <p>נוספה אפשרות להגדיר רטט גם כשנמוך מתחת ל- 55 מ"ג. וכן נוספו צלילים יהודיים.</p>
+<p>כדי לחזור לגירסה הקודמת יש להסיר את הגירסה החדשה ורק לאחר מכן ללחוץ על הורדה.</p>
 </div>
 </div>
 </div>
 		      
 		      
 		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.11.0.7.apk" class="button">הורדה</a></p>
+<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.11.0.7.apk" class="button">⬇️ 1.11.0.7 ⬇️</a></p>
+
+<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.10.0.2.apk" class="button">⬇️ 1.10.0.2 ⬇️</a></p>
 
 </div>
 
@@ -892,7 +929,24 @@ body {
 
 </div>
 
-	
+	<title>File Download with Password Protection</title>
+  <script>
+    function showDownload() {
+      var password = document.getElementById("password").value;
+      if (password == "משימות") {
+        window.location.href = "https://github.com/F22proApp/F22proApp/raw/main/Apps/AndroidAPS_Tasks.apk";
+      } else {
+        location.reload(); // Reload the page
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="passwordForm">
+    <label for="password">הזינו סיסמה:</label>
+    <input type="password" id="password" size="5">
+    <button onclick="showDownload()">אישור</button>
+  </div>
 	
 	
  
