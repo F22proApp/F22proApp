@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="iw" dir="rtl">
 <html>
@@ -991,10 +990,83 @@ body {
 <i><center><p><h3>Developers by Y.E & D.H ©</h3></p></center></i>
 
 
+<head>
+  <title>Floating Message</title>
+  <style>
+    .floating-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f1f1f1;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      z-index: 9999;
+    }
+    
+    .close-button {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
+    .show-button {
+      position: fixed;
+      top: 10px;
+      left: 5px;
+      font-size: 20px;
+      background-color: #FFFFFF;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+<body dir="rtl">
+  <div class="floating-message" id="message1">
+  <span class="close-button" onclick="hideMessage('message1')">×</span>
+  <h2 style="text-align: center;">הודעה חדשה!</h2>
+  <p>• עדכון גירסה לאפליקציית AAPS.</p>
+  <p>• בתאריך 13/11/2023 .</p>
+  <p>• מס' גירסה 3.2.0.2.</p>
+  <p>• תוקנו מספר באגים.</p>
+</div>
+
+  <button class="show-button" onclick="showMessage('message1')">
+  <img src="https://static.vecteezy.com/system/resources/previews/010/366/210/original/bell-icon-transparent-notification-free-png.png" alt="Show Messages" style="width: 30px; height: 30px;">
+</button>
+
+  <script>
+    // Function to hide the message when the close button is clicked
+    function hideMessage(identifier) {
+      document.getElementById(identifier).style.display = "none";
+      
+      // Store the identifier in local storage to persist the hidden state
+      localStorage.setItem(identifier, true);
+    }
+
+    // Function to show the hidden message
+    function showMessage(identifier) {
+      document.getElementById(identifier).style.display = "block";
+      
+      // Remove the identifier from local storage
+      localStorage.removeItem(identifier);
+    }
+
+    // Check if the message should be hidden based on the local storage value
+    const hiddenMessage = localStorage.getItem("message1");
+    if (hiddenMessage) {
+      document.getElementById("message1").style.display = "none";
+    }
+  </script>
 
 
 </body>
 
 </html>
-
