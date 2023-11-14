@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="iw" dir="rtl">
 <html>
@@ -993,22 +995,23 @@ body {
 <head>
   <title>Floating Message</title>
   <style>
-    .floating-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #f1f1f1;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      z-index: 9999;
-    }
+.floating-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF8BB;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  z-index: 9999;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+}
     
     .close-button {
       position: absolute;
-      top: 2px;
-      right: 2px;
+      top: 4px;
+      right: 7px;
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
@@ -1019,7 +1022,7 @@ body {
       top: 10px;
       left: 5px;
       font-size: 20px;
-      background-color: #FFFFFF;
+      background-color: #01000000;
       padding: 10px;
       border: none;
       border-radius: 5px;
@@ -1039,7 +1042,7 @@ body {
 </div>
 
   <button class="show-button" onclick="showMessage('message1')">
-  <img src="icon/bell.png" alt="Show Messages" style="width: 30px; height: 30px;">
+  <img src="https://static.vecteezy.com/system/resources/previews/010/366/210/original/bell-icon-transparent-notification-free-png.png" alt="Show Messages" style="width: 30px; height: 30px;">
 </button>
 
   <script>
@@ -1070,3 +1073,4 @@ body {
 </body>
 
 </html>
+
