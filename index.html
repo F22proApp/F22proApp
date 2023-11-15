@@ -1003,16 +1003,26 @@ body {
   transform: translate(-50%, -50%);
   background-color: #B5b7b6;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 15px;
   z-index: 9999;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
 }
+
+.floating-message::before {
+  content: '';
+  position: absolute;
+  top: 5px; /* Adjust the thickness of the frame here */
+  right: 5px; /* Adjust the thickness of the frame here */
+  bottom: 5px; /* Adjust the thickness of the frame here */
+  left: 5px; /* Adjust the thickness of the frame here */
+  border: 3px solid #FFFFFF; /* Set the color and thickness of the frame */
+  border-radius: 15px;
+}
     
     .close-button {
       position: absolute;
-      top: 4px;
-      right: 7px;
+      top: 8px;
+      right: 12px;
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
@@ -1043,7 +1053,7 @@ body {
 </div>
 
   <button class="show-button" onclick="showMessage('message1')">
-  <img src="https://static.vecteezy.com/system/resources/previews/010/366/210/original/bell-icon-transparent-notification-free-png.png" alt="Show Messages" style="width: 30px; height: 30px;">
+  <img src="icon/bell.png" alt="Show Messages" style="width: 30px; height: 30px;">
 </button>
 
   <script>
