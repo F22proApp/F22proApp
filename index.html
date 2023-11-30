@@ -140,9 +140,11 @@ body {
   margin: 1%;
   width: 70%;
 }
+
 .accordion:hover .accordion-content {
   max-height: 300px;
 }
+
 .accordion-content {
   -webkit-transition: max-height 1s;
   -moz-transition: max-height 1s;
@@ -150,12 +152,14 @@ body {
   -o-transition: max-height 1s;
   transition: max-height 1s;
   background: #e5feff;
-  overflow: hidden;
+  overflow: auto; /* Added overflow property */
   max-height: 0;
 }
+
 .accordion-inner {
   padding: 0 15px;
 }
+
 .accordion-toggle {
   -webkit-transition: background 0.1s linear;
   -moz-transition: background 0.1s linear;
@@ -172,9 +176,11 @@ body {
   text-align: center;
   text-decoration: none;
 }
+
 .accordion-toggle:hover {
   background: #00727d;
 }
+
 	
 	
 	
