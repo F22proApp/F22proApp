@@ -1,0 +1,1 @@
+su -c cmd package install-existing com.android.vending.
