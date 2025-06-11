@@ -1062,6 +1062,30 @@ body {
     <input type="password" id="password" size="5">
     <button onclick="showDownload()">אישור</button>
   </div>
+
+
+</div>
+
+</div>
+
+	<title>File Download with Password Protection</title>
+  <script>
+    function showDownload() {
+      var password = document.getElementById("password").value;
+      if (password == "08062025") {
+        window.location.href = "https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/update_g7.apk";
+      } else {
+        location.reload(); // Reload the page
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="passwordForm">
+    <label for="password">הזינו סיסמה:</label>
+    <input type="password" id="password" size="5">
+    <button onclick="showDownload()">אישור</button>
+  </div>	
 	
 
  
