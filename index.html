@@ -1107,24 +1107,66 @@ body {
 
 </div>
 
-	<title>File Download with Password Protection</title>
-  <script>
-    function showDownload() {
-      var password = document.getElementById("password").value;
-      if (password == "29122025") {
-        window.location.href = "https://send.magicode.me/send-file/file/de01e6c20beffe9fd32b10f34a94c48b3b2825d2/download";
-      } else {
-        location.reload(); // Reload the page
-      }
+	
+<title>File Download with Password Protection</title>
+
+<style>
+  body {
+    text-align: center;
+    font-family: Arial;
+  }
+  #downloads {
+    display: none;
+    margin-top: 20px;
+  }
+  button {
+    margin: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+</style>
+
+<script>
+  function checkPassword() {
+    var password = document.getElementById("password").value;
+
+    if (password === "29122025") {
+      document.getElementById("passwordForm").style.display = "none";
+      document.getElementById("downloads").style.display = "block";
+    } else {
+      location.reload();
     }
-  </script>
+  }
+</script>
 </head>
+
 <body>
-  <div id="passwordForm">
-    <label for="password">הזינו סיסמה:</label>
-    <input type="password" id="password" size="5">
-    <button onclick="showDownload()">אישור</button>
-  </div>
+
+<div id="passwordForm">
+  <label for="password">הזינו סיסמה:</label><br><br>
+  <input type="password" id="password" size="10">
+  <br><br>
+  <button onclick="checkPassword()">אישור</button>
+</div>
+
+<div id="downloads">
+  <h3>הורדות זמינות</h3>
+
+  <a href="https://send.magicode.me/send-file/file/de01e6c20beffe9fd32b10f34a94c48b3b2825d2/download">
+    <button>הורדה 1</button>
+  </a>
+
+  <a href="https://send.magicode.me/send-file/file/b5f55e951d0e5fc7779dede15a7fbc24e5d242f1/download">
+    <button>הורדה 2</button>
+  </a>
+
+  <a href="https://send.magicode.me/send-file/file/3449c4be4d8ee06875f4ea81e0e10d81d0f8eb2c/download">
+    <button>הורדה 3</button>
+  </a>
+</div>
+
+</body>
+
 
 
 </div>
