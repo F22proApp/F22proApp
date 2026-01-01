@@ -210,6 +210,8 @@ body {
 
 
 <p>• xDrip+<p>
+<p>• AndroidAPS<p>
+<p>• NSClient<p>
 
 
 
@@ -293,20 +295,68 @@ body {
 <a class="accordion-toggle">מידע על האפליקציה</a>
 <div class="accordion-content">
 <div class="accordion-inner"> 
-<p>גירסה: 3.3.2.1</p>
+<p>גירסה: 3.4.0.0</p>
 
 <h4>אזהרה חמורה⚠️</h4>
 <h4>כל שימוש בתכונות הללו על אחריות המשתמש בלבד. אני מסיר כל אחריות מראש.</h4>
-<h4>חובה לקרוא את כל השינויים שנעשו בגירסה זו באתר של AAPS. (יש שינויים קיצוניים.)</h4>
-<p>עיצוב חדש לכפתורים, isf דינאמי שולב ביחד עם OpenAPS SMB (אפשר לקרוא קצת מידע באפליקציית המדריכים), נוספה תמיכה במשאבת אקוויל, ועוד...</p>
-<p>כדי לבדוק האם הגירסה שלכם מעודכנת יש לפתוח את אפליקציית AAPS וללחוץ על 3 פסים בצד שמאל למעלה ואח"כ אודות שם יופיע מס' הגירסה המותקן אצלכם.</p>
+<section class="release-notes-androidaps-3-4">
+  <h2>AndroidAPS 3.4.0.0 – סיכום שינויים עיקריים</h2>
+
+  <h3>דרישות מערכת</h3>
+  <p>
+    גרסה זו מחייבת מערכת הפעלה Android 12 ומעלה.
+  </p>
+
+  <h3>תכונות ושיפורים כלליים</h3>
+  <ul>
+    <li>הרחבת מצבי ההפעלה והעמקת אפשרויות הבקרה.</li>
+    <li>תמיכה בחיישני CGM חדשים ושיפור סינון הנתונים.</li>
+    <li>ניהול סיבוב מיקום הזרקה (Site Rotation).</li>
+    <li>אפשרות לעצירת SMB ישירות מממשק המשתמש.</li>
+    <li>שיפורים באוטומציה, כולל שליטה על SMB.</li>
+  </ul>
+
+  <h3>Wear OS</h3>
+  <ul>
+    <li>שכתוב כמעט מלא של רכיב השעון בטכנולוגיות עדכניות.</li>
+    <li>הפחתה משמעותית בצריכת סוללה.</li>
+    <li>שיפורי ממשק ותצוגת סטטוס לולאה.</li>
+    <li>Wizard ייעודי לבולוס מהשעון.</li>
+    <li>תוספת Complications חדשות ותמיכה ב-DataStore.</li>
+  </ul>
+
+  <h3>ביצועים ויציבות</h3>
+  <ul>
+    <li>תיקון דליפות זיכרון ושיפור ניטור תקלות.</li>
+    <li>אופטימיזציה כללית לפעולת הרקע.</li>
+  </ul>
+
+  <h3>משאבות ותקשורת</h3>
+  <ul>
+    <li>שיפור יציבות חיבור למשאבות שונות.</li>
+    <li>הפחתת ניתוקים והאצת זמני תגובה.</li>
+    <li>תיקוני תצוגה ונתונים במודולים ייעודיים.</li>
+    <li>טיפול ברשומות כפולות בסנכרון נתונים.</li>
+  </ul>
+
+  <h3>בדיקות ואיכות קוד</h3>
+  <ul>
+    <li>הרחבת בדיקות יחידה למודולים מרכזיים.</li>
+    <li>שיפור כיסוי בדיקות ויציבות כללית.</li>
+  </ul>
+
+  <h3>שירותים חיצוניים</h3>
+  <p>
+    נוספה תמיכה במנגנון OAuth2 המעודכן של Tidepool.
+  </p>
+</section>
 </div>
 </div>
 </div>
 		      
 		      
 		      
-<p><a href="https://www.googleapis.com/drive/v3/files/1dFZedHukbgST0695czPeZ_tn_UEzDgHl?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0" class="button">הורדה</a></p>
+<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/3.4.0.0_sign.apk" class="button">הורדה</a></p>
 
 </div>
 
@@ -330,7 +380,7 @@ body {
 <a class="accordion-toggle">מידע על האפליקציה</a>
 <div class="accordion-content">
 <div class="accordion-inner">
-<p>תאריך שיחרור הגירסה: 15.10.2025</p>
+<p>תאריך שיחרור הגירסה: 31.12.2025</p>
 <p>להדרכה כיצד לחבר את Dexcom G7, <a href="https://object.mk-devices.ovh/aaps/guides/xDrip-G7.html" target="_blank">לחצו כאן</a>.</p>
 <p>תחליף לאפליקציית דקסקום G6. מתאים גם לסנסורים נוספים. מאפשר העלאת נתונים ל Tidepool. ועוד...</p>
 </div>
@@ -339,7 +389,7 @@ body {
 		      
 		      
 		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/xDrip-plus-20251015-0a649c2_sign.apk" class="button">הורדה</a></p>
+<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/xDrip-plus-20251231-24cee36_sign%5B1%5D.apk" class="button">הורדה</a></p>
 <!--<p><a href="https://github.com/NightscoutFoundation/xDrip/releases/download/2024.11.26/xDrip-plus-20241126-a2bbca9.apk" class="button">יעבוד למי שקיבל הנחייה להוריד</a></p>-->
 </div>
 
@@ -400,14 +450,14 @@ body {
 <div class="accordion-content">
 <div class="accordion-inner">
 <p>מיועד להורים עוקבים.</p>
-<p>עודכן לגירסה 3.3.2.1</p>
+<p>עודכן לגירסה 3.4.0.0</p>
 </div>
 </div>
 </div>
 		      
 		      
 		      
-<p><a href="https://github.com/nightscout/AndroidAPS/releases/download/3.3.2.1/app-aapsclient-release_3.3.2.1.apk" class="button">הורדה</a></p>
+<p><a href="https://github.com/nightscout/AndroidAPS/releases/download/3.4.0.0/app-aapsclient-release_3.4.0.0.apk" class="button">הורדה</a></p>
 
 </div>
 
@@ -1228,15 +1278,17 @@ body {
 </head>
 <body>
 <body dir="rtl">
-  <div class="floating-message" id="message8">
-  <span class="close-button" onclick="hideMessage('message8')">×</span>
+  <div class="floating-message" id="message9">
+  <span class="close-button" onclick="hideMessage('message9')">×</span>
   <h3 style="text-align: center;">גירסה חדשה זמינה!</h3>
-  <p>• עדכון גירסה לאפליקציית AAPS </p>
-  <p>• בתאריך 30/03/2025 </p>
-  <p>• מס' גירסה 3.3.2.1 </p>
+  <p>• עדכון גירסה לאפליקציית: AAPS, NSClient </p>
+  <p>• בתאריך 01/01/2026 </p>
+  <p>• מס' גירסה 3.4.0.0 </p>
+  <p>• עדכון גירסה לאפליקציית: xDrip+ </p>
+  <p>• בתאריך 31/12/2025 </p>
 </div>
 
-  <button class="show-button" onclick="showMessage('message8')">
+  <button class="show-button" onclick="showMessage('message9')">
   <img src="icon/bell.png" alt="Show Messages" style="width: 30px; height: 30px;">
 </button>
 
@@ -1258,9 +1310,9 @@ body {
     }
 
     // Check if the message should be hidden based on the local storage value
-    const hiddenMessage = localStorage.getItem("message8");
+    const hiddenMessage = localStorage.getItem("message9");
     if (hiddenMessage) {
-      document.getElementById("message8").style.display = "none";
+      document.getElementById("message9").style.display = "none";
     }
   </script>
 
