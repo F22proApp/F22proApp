@@ -1,1367 +1,1413 @@
 <!DOCTYPE html>
-<html lang="iw" dir="rtl">
-<html>
-
+<html lang="he" dir="rtl">
 <head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>אפליקציות F22 Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
 <style>
-    #netfree-popup-window {
-        display: none !important;
-    }
-</style>
-
-<body style="text-align:center; margin:0 auto;">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--<div class="imgbox"> <img class="center-fit" src="icon/iconTitle.gif"/></div>-->
-
-<style>
-
-html {
-
-  box-sizing: border-box;
-
-}
-
-
-
-*, *:before, *:after {
-
-  box-sizing: inherit;
-
-}
-
-
-
-.column {
-
-  float: left;
-
-  width: 33.3%;
-
-  margin-bottom: 16px;
-
-  padding: 0 8px;
-
-}
-
-
-
-@media screen and (max-width: 650px) {
-
-  .column {
-
-    width: 100%;
-
-    display: block;
-
+  :root {
+    --bg: #0d0f14;
+    --surface: #161b25;
+    --surface2: #1e2535;
+    --border: rgba(99,179,111,0.18);
+    --accent: #4ade80;
+    --accent2: #22d3ee;
+    --accent3: #a78bfa;
+    --text: #e8edf5;
+    --text-muted: #8899aa;
+    --card-glow: rgba(74,222,128,0.07);
+    --radius: 18px;
+    --font: 'Heebo', sans-serif;
   }
 
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
 
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+    overflow-x: hidden;
+  }
 
-.card {
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,222,128,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,222,128,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-  border-radius: 15px;
+  /* ───── HEADER ───── */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 56px 20px 40px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(74,222,128,0.06) 0%, transparent 100%);
+  }
 
-  background: #FFFFECB3;
+  .header-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.25);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
 
+  header h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
 
+  .update-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
 
-  box-shadow: 0 20px 40px 0 rgba(10, 10, 10, 0.6);
+  .update-info .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
 
-}
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
 
+  .updated-apps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
 
+  .updated-chip {
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 999px;
+  }
 
-.container {
+  /* ───── PASSWORD MODAL ───── */
+  #password-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
 
-  padding: 0 16px;
+  .password-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px 32px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(74,222,128,0.1);
+    animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
 
-}
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
 
+  .password-box .lock-icon {
+    font-size: 42px;
+    margin-bottom: 16px;
+    display: block;
+  }
 
+  .password-box h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
 
-.container::after, .row::after {
+  .password-box p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
 
-  content: "";
+  .password-display {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    color: var(--accent);
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 20px;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
 
-  clear: both;
+  .password-display.shake {
+    animation: shake 0.4s;
+    border-color: #f87171;
+    color: #f87171;
+  }
 
-  display: table;
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
 
-}
+  .numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
 
+  .num-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
 
+  .num-btn:hover, .num-btn:active {
+    background: rgba(74,222,128,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(0.96);
+  }
 
-.title {
+  .pw-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
 
-  color: grey;
+  .pw-btn {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-}
+  .pw-btn.confirm {
+    background: linear-gradient(135deg, var(--accent), #22c55e);
+    color: #0d0f14;
+  }
 
+  .pw-btn.confirm:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-.button {
-	box-shadow: 0px 10px 14px -7px #3a7327;
-	background:linear-gradient(to bottom, #51d651 5%, #4c9940 100%);
-	background-color:#51d651;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:20px;
-	font-weight:bold;
-	padding:13px 32px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #3e7f8a;
-}
-.button:hover {
-	background:linear-gradient(to bottom, #4c9940 5%, #51d651 100%);
-	background-color:#4c9940;
-}
-.button:active {
-	position:relative;
-	top:1px;
-}	
-	
-	
+  .pw-btn.clear {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
 
-	
-	
-body {
-  font-family: helvetica;
-  font-size: 18px;
-  text-align: center;
-}
-.accordion {
-  display: inline-block;
-  text-align: center;
-  margin: 1%;
-  width: 70%;
-}
+  .pw-btn.clear:hover { border-color: #f87171; color: #f87171; }
 
-.accordion:hover .accordion-content {
-  max-height: 300px;
-}
+  #pw-message {
+    font-size: 13px;
+    color: #f87171;
+    margin-top: 12px;
+    min-height: 20px;
+    transition: opacity 0.3s;
+  }
 
-.accordion-content {
-  -webkit-transition: max-height 1s;
-  -moz-transition: max-height 1s;
-  -ms-transition: max-height 1s;
-  -o-transition: max-height 1s;
-  transition: max-height 1s;
-  background: #e5feff;
-  overflow: auto; /* Added overflow property */
-  max-height: 0;
-}
+  /* ───── NOTIFICATION BANNER ───── */
+  /* ───── UPDATE POPUP ───── */
+  #update-popup {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    width: calc(100% - 32px);
+    max-width: 480px;
+    background: linear-gradient(145deg, #161b25, #1a2030);
+    border: 1px solid rgba(34,211,238,0.35);
+    border-radius: 20px;
+    box-shadow:
+      0 24px 60px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(34,211,238,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.04);
+    overflow: hidden;
+    animation: popupIn 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
 
-.accordion-inner {
-  padding: 0 15px;
-}
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-.accordion-toggle {
-  -webkit-transition: background 0.1s linear;
-  -moz-transition: background 0.1s linear;
-  -ms-transition: background 0.1s linear;
-  -o-transition: background 0.1s linear;
-  transition: background 0.1s linear;
-  background: #00c2c9;
-  border-radius: 8px;
-  color: #fff;
-  display: block;
-  font-size: 20px;
-  margin: 0 0 10px;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-}
+  @keyframes popupIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(30px) scale(0.96); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1);    }
+  }
 
-.accordion-toggle:hover {
-  background: #00727d;
-}
+  .popup-glow {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent2), var(--accent), transparent);
+  }
 
-	
-	
-	
-	
-	
-	
-	
-       
+  .popup-inner {
+    padding: 20px 20px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .popup-icon-wrap {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(34,211,238,0.15), rgba(74,222,128,0.1));
+    border: 1px solid rgba(34,211,238,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .popup-content { flex: 1; min-width: 0; }
+
+  .popup-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 4px;
+  }
+
+  .popup-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .popup-body {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .popup-apps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .popup-app-chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.25);
+    color: var(--accent);
+  }
+
+  .popup-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  .popup-close {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+  }
+
+  .popup-close:hover {
+    background: rgba(248,113,113,0.15);
+    border-color: rgba(248,113,113,0.4);
+    color: #f87171;
+  }
+
+  .popup-dismiss-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0 20px 14px;
+    opacity: 0.55;
+  }
+
+  /* ───── MAIN CONTENT ───── */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* ───── SECTION TITLES ───── */
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 36px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ───── CARDS GRID ───── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── APP CARD ───── */
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .app-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
+    transform: translate(30%, -30%);
+    pointer-events: none;
+  }
+
+  .app-card:hover {
+    border-color: rgba(74,222,128,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(74,222,128,0.12);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .app-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: var(--surface2);
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+
+  .app-card:hover .app-icon {
+    transform: scale(1.06);
+  }
+
+  .card-title-wrap { flex: 1; min-width: 0; }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-version {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* Accordion */
+  .accordion-btn {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: right;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .accordion-btn:hover { border-color: rgba(74,222,128,0.3); color: var(--text); }
+  .accordion-btn:hover .chevron { color: var(--accent); }
+
+  .chevron {
+    transition: transform 0.3s;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .accordion-btn.open .chevron { transform: rotate(180deg); }
+
+  .accordion-body {
+    display: none;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .accordion-body.open { display: block; animation: fadeIn 0.2s ease; }
+
+  .accordion-body p { margin-bottom: 6px; }
+  .accordion-body p:last-child { margin-bottom: 0; }
+  .accordion-body h3,
+  .accordion-body h4 { color: var(--text); font-size: 13px; margin: 10px 0 4px; }
+  .accordion-body ul { padding-right: 18px; }
+  .accordion-body li { margin-bottom: 3px; }
+  .accordion-body a { color: var(--accent2); }
+
+  .warning-box {
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #fbbf24;
+    margin-bottom: 8px;
+  }
+
+  /* Download button */
+  .dl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--accent), #22c55e);
+    color: #0d0f14;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+    -webkit-tap-highlight-color: transparent;
+    margin-top: 2px;
+  }
+
+  .dl-btn:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(74,222,128,0.3); }
+  .dl-btn:active { transform: translateY(1px); }
+
+  .dl-btn + .dl-btn {
+    margin-top: 8px;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: #fff;
+  }
+
+  .private-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: 12px;
+    border: 1px solid rgba(167,139,250,0.4);
+    background: rgba(167,139,250,0.12);
+    color: var(--accent3);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .private-trigger-btn:hover {
+    background: rgba(167,139,250,0.22);
+    border-color: rgba(167,139,250,0.65);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(167,139,250,0.2);
+  }
+
+  .whats-new-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: 12px;
+    border: 1px solid rgba(34,211,238,0.35);
+    background: rgba(34,211,238,0.08);
+    color: var(--accent2);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .whats-new-btn:hover {
+    background: rgba(34,211,238,0.16);
+    border-color: rgba(34,211,238,0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(34,211,238,0.15);
+  }
+
+  .private-dl-btn {
+    display: flex;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #a78bfa, #7c3aed) !important;
+    color: #fff !important;
+  }
+
+  .private-dl-btn:first-of-type { margin-top: 0; }
+
+  /* ───── FOOTER ───── */
+  footer {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 32px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  footer .bsd {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* ───── RESPONSIVE TWEAKS ───── */
+  @media (max-width: 480px) {
+    header { padding: 40px 16px 28px; }
+    .password-box { padding: 28px 20px; }
+    .num-btn { font-size: 18px; padding: 14px; }
+  }
 </style>
-
 </head>
-
 <body>
 
-
-
-<p>בס"ד<p>
-
-<p><h2>עדכון אחרון בתאריך:</h2></p>
-
-<p>19.04.2026<p>
-
-<p><h2>אפליקציה/ות שעודכנה/ו:</h2></p>
-
-
-<p>• AndroidAPS<p>
-<p>• NSClient<p>
-<p>• xDrip+<p>
-
-
-<p><h2>AndroidAPS</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>גירסה: 3.4.2.2</p>
-
-<h4>אזהרה חמורה⚠️</h4>
-<h4>כל שימוש בתכונות הללו על אחריות המשתמש בלבד. אני מסיר כל אחריות מראש.</h4>
-<h4>הודעה חשובה❗</h4>
-<p>משתמשי טיידפול לפני עדכון הגירסה (אפשר גם אחרי אבל תצטרכו לכבות את האינטרנט בזמן הפעולה) יש לפתוח את האפליקציה ובתפריט בצד ימין לבחור "בונה התצורה" ולגלול למטה תחת הכותרת "סינכרון" לבטל את סימון הוי בצד ימין של טיידפול - Tidepool.</p>
- <p>ניתן לסדר את האפשרות להעלות נתונים לטיידפול בתשלום חד פעמי בסך 50 ש"ח מרחוק.</p>
-	<section class="release-notes-androidaps-3-4">
-	
-  <h2>AndroidAPS 3.4.2.2 – סיכום שינויים עיקריים</h2>
-
-  <h3>דרישות מערכת</h3>
-  <p>
-    גרסה זו מחייבת מערכת הפעלה Android 12 ומעלה.
-  </p>
-
-  <h3>תכונות ושיפורים כלליים</h3>
-  <ul>
-    <li>הרחבת מצבי ההפעלה והעמקת אפשרויות הבקרה.</li>
-    <li>תמיכה בחיישני CGM חדשים ושיפור סינון הנתונים.</li>
-    <li>ניהול סיבוב מיקום הזרקה (Site Rotation).</li>
-    <li>אפשרות לעצירת SMB ישירות מממשק המשתמש.</li>
-    <li>שיפורים באוטומציה, כולל שליטה על SMB.</li>
-  </ul>
-
-  <h3>Wear OS</h3>
-  <ul>
-    <li>שכתוב כמעט מלא של רכיב השעון בטכנולוגיות עדכניות.</li>
-    <li>הפחתה משמעותית בצריכת סוללה.</li>
-    <li>שיפורי ממשק ותצוגת סטטוס לולאה.</li>
-    <li>Wizard ייעודי לבולוס מהשעון.</li>
-    <li>תוספת Complications חדשות ותמיכה ב-DataStore.</li>
-  </ul>
-
-  <h3>ביצועים ויציבות</h3>
-  <ul>
-    <li>תיקון דליפות זיכרון ושיפור ניטור תקלות.</li>
-    <li>אופטימיזציה כללית לפעולת הרקע.</li>
-  </ul>
-
-  <h3>משאבות ותקשורת</h3>
-  <ul>
-    <li>שיפור יציבות חיבור למשאבות שונות.</li>
-    <li>הפחתת ניתוקים והאצת זמני תגובה.</li>
-    <li>תיקוני תצוגה ונתונים במודולים ייעודיים.</li>
-    <li>טיפול ברשומות כפולות בסנכרון נתונים.</li>
-  </ul>
-
-  <h3>בדיקות ואיכות קוד</h3>
-  <ul>
-    <li>הרחבת בדיקות יחידה למודולים מרכזיים.</li>
-    <li>שיפור כיסוי בדיקות ויציבות כללית.</li>
-  </ul>
-
-  <h3>שירותים חיצוניים</h3>
-  <p>
-    נוספה תמיכה במנגנון OAuth2 המעודכן של Tidepool.
-  </p>
-</section>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/AAPS_3.4.2.2.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/CertInstaller.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>שיחות בדור 4</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner">
-<p>הוספת תמיכה ברשת דור 4.</p>
-<p>עבור מכשירי f21 pro בלבד.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/volte-appconfv3.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/CertInstaller.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>CertInstaller</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner">
-<p>אפליקציה לעדכון תעודות אבטחה.</p>
-<p>לקוחות שמשתמשים ברשת אינטרנט של נטפרי עם ספק RL האפליקציה הזו תסדר את הבעייה שמופיעה כאשר מתחברים לרשת "חיבור מוגבל".</p>
-<p>יש עוד ספקי אינטרנט שמחייבים התקנת תעודות אבטחה, אם נתקלתם בתקלה מסוג זה התקינו את האפליקציה ופעלו על פי ההוראות.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/CertInstaller_3.0.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/CertInstaller.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>תיקון הקשות בשיחה</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner">
-<p>אפליקציה לתיקון בעייה שלא ניתן להקיש במהלך שיחה, כדי לעבור שלוחות.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/%D7%AA%D7%99%D7%A7%D7%95%D7%9F_%D7%94%D7%A7%D7%A9%D7%95%D7%AA_%D7%91%D7%A9%D7%99%D7%97%D7%94_1.0%5B1%5D.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/AndroidAPS.png" style="width="115" height="115">
-
-<div class="container">
-     
-
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/xDrip.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>xDrip + G7</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner">
-<p>תאריך שיחרור הגירסה: 05.04.2026</p>
-<p>להדרכה כיצד לחבר את Dexcom G7, <a href="https://object.mk-devices.ovh/aaps/guides/xDrip-G7.html" target="_blank">לחצו כאן</a>.</p>
-<p>תחליף לאפליקציית דקסקום G6. מתאים גם לסנסורים נוספים. מאפשר העלאת נתונים ל Tidepool. ועוד...</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/xDrip-plus-20260405-82b0ff5_sign%5B1%5D.apk" class="button">הורדה</a></p>
-<!--<p><a href="https://github.com/NightscoutFoundation/xDrip/releases/download/2024.11.26/xDrip-plus-20241126-a2bbca9.apk" class="button">יעבוד למי שקיבל הנחייה להוריד</a></p>-->
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/androidaps.readthedocs.io_online.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>AndroidAPS - האתר הרשמי מתורגם</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>כל המידע על הלופ כעת באתר הרשמי באפליקציה.</p>
-<p>שימו לב! למי שיש אינטרנט רגיל יש ללחוץ באפליקציה על הקישור הראשון וכך כל האתר יוצג בעברית.</p>
-<p>משתמשי נטפרי לצערנו לא הצלחנו לקבל אישור להפעלת האתר בצורה מתורגמת, לרשותכם עומד לעת עתה האתר הרישמי ללא תרגום אוטומטי, יש ללחוץ על הקישור השני באפליקציה.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/androidaps.readthedocs.io_online.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-	
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/NSClient.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>NSClient</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner">
-<p>מיועד להורים עוקבים.</p>
-<p>עודכן לגירסה 3.4.2.2</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/nightscout/AndroidAPS/releases/download/3.4.2.2/app-aapsclient-release_3.4.2.2.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/DexcomG6.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>Dexcom G6</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>נוספה אפשרות להגדיר רטט גם כשנמוך מתחת ל- 55 מ"ג. וכן נוספו צלילים יהודיים.</p>
-<p>כדי לחזור לגירסה הקודמת יש להסיר את הגירסה החדשה ורק לאחר מכן ללחוץ על הורדה.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.11.0.7.apk" class="button">⬇️ 1.11.0.7 ⬇️</a></p>
-
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.10.0.2.apk" class="button">⬇️ 1.10.0.2 ⬇️</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Clarity.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>Clarity</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>אפליקציה להורדת היסטורית הנתונים. וכן שיתוף הנתונים עם מרפאות.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/DexcomClarity.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Follow.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>Follow</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מיועד להורים עוקבים.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Follow_4.5.0.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/PluginFollow.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>תוסף Follow</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>נצרך לתהליך תחילת המעקב.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/PluginFollow.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/shabat.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>התקן שבת</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מפעיל את המסך ע"פ בחירתכם. להוראות הפעלה כנסו למדריך שימוש.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Shabbat.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Vibration.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>תוסף רטט להתקן שבת</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>תוסף המאפשר הפעלת רטט בזמן שנדלק המסך בשבת.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Vibration.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-  
- 
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Ruffy.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>Ruffy</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>יוצר חיבור בין משאבת אקיו צ'ק לבין הפלאפון.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Ruffy.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-											      
-											      
-											      
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Apex.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>מסך בית - Apex Launcher</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מסך בית שונה. עם אפשרויות נוספות, כולל הסתרת אפליקציות. ועוד...</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Apex_Launcher_4.9.20.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/SplashtopSOS.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>שליטה מרחוק</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>במקרה של תקלות ננסה לעזור לכם מרחוק.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Splashtop_SOS_3.6.49.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-	
-	
-<!--
-<div class="column">
-
-<div class="card">
-
-<img src="icon/QuickSupport.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>שליטה מרחוק</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>במקרה של תקלות ננסה לעזור לכם מרחוק.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://www.googleapis.com/drive/v3/files/19n0McF42AObbuAXWWNCdChd9tJpy2kNY?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-  
-  
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/TeamViewerPlugin.png"  style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>תוסף לשליטה מרחוק</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>התוסף מאפשר חיבור איכותי יותר.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/TeamViewerPlugin.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
--->
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Musicolet.png" style="width="115" height="115">
-
-<div class="container">
-
-<p><h2>נגן Musicolet</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>נגן Musicolet הוא הנגן הטוב ביותר כך ע"פ משתמשים בעולם, הכולל אפשרויות רבות ומגוונות לנוחיותכם.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Musicolet.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Tfilon.png"  style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>תפילון</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>אין מידע נוסף !</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/tfilon.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/GoogleAuthenticator.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>מאמת החשבונות</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מיועד להורים שמזריקים מרחוק לילד/ה.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Google_Authenticator.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Gboard.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>מקלדת Google - Gboard</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מקלדת עם המון פונקציות יחודיות.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Gboard.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
- 
-	
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Translate.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>Google Translate - תרגום</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מאפשר לתרגם בכל שפה במגוון אפשרויות.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/GoogleTranslate.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-  
-	
-	
-<div class="column">
-
-<div class="card">
-
-<img src="icon/Telephone.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>חייגן Google</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>חייגן עם אפשרות למענה לשיחה מהמסך וכן ניתוק. ועוד אפשרויות נוחות.</p>
-<p>חיסרון: אין הקלטת שיחות בחייגן זה.</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Telephone.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/DeleteApp.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>מוחק אפליקציות</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מאפשר למחוק נגן, מצלמה, גלריה, והודעות.</p>
-<p>עידכון אחרון ב- 24.07.2023</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/DeleteApp.apk" class="button">הורדה</a></p>
-
-	
-</div>
-
-</div>
-
-</div>
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/DocsToGo.png" style="width="115" height="115"=>
-
-<div class="container">
-
-<p><h2>Docs To Go - פתיחת ועריכת מסמכים</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>מאפשר לפתוח ולערוך קבצי pdf, word, PowerPoint.</p>
-<p>אם מצאתם טעות בעברית של האפליקציה או בעייה אחרת בבקשה תעדכנו אותי במייל: n0556789344@gmail.com </p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/DocsToGo.apk" class="button">הורדה</a></p>
-
-	
-</div>
-
-</div>
-
-</div>
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/AndroidAPS.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>AndroidAPS reset</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>reset</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/3.2.0-beta.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="column">
-
-<div class="card">
-
-<img src="icon/updatag7.png" style="width="115" height="115">
-
-<div class="container">
-     
-<p><h2>עדכון אבטחה - Dexcom G7</h2></p>
-		      
-<div class="accordion"> 
-  
-<a class="accordion-toggle">מידע על האפליקציה</a>
-<div class="accordion-content">
-<div class="accordion-inner"> 
-<p>משפר את פעילות אפליקציית Dexcom G7</p>
-</div>
-</div>
-</div>
-		      
-		      
-		      
-<p><a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/update_g7.apk" class="button">הורדה</a></p>
-
-</div>
-
-</div>
-
-</div>
-
-	
-<title>File Download with Password Protection</title>
-
-<style>
-  body {
-    text-align: center;
-    font-family: Arial;
-  }
-  #downloads {
-    display: none;
-    margin-top: 20px;
-  }
-  button {
-    margin: 8px;
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-</style>
+<!-- PASSWORD MODAL (hidden by default) -->
+<div id="password-overlay" style="display:none">
+  <div class="password-box">
+    <button onclick="closeModal()" style="position:absolute;top:14px;left:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">✕</button>
+    <span class="lock-icon">🔐</span>
+    <h2>התקנות אישיות</h2>
+    <p>הכנס סיסמה כדי לגשת</p>
+    <div class="password-display" id="pw-display">••••</div>
+    <div class="numpad" id="numpad">
+      <button class="num-btn" onclick="addDigit('1')">1</button>
+      <button class="num-btn" onclick="addDigit('2')">2</button>
+      <button class="num-btn" onclick="addDigit('3')">3</button>
+      <button class="num-btn" onclick="addDigit('4')">4</button>
+      <button class="num-btn" onclick="addDigit('5')">5</button>
+      <button class="num-btn" onclick="addDigit('6')">6</button>
+      <button class="num-btn" onclick="addDigit('7')">7</button>
+      <button class="num-btn" onclick="addDigit('8')">8</button>
+      <button class="num-btn" onclick="addDigit('9')">9</button>
+      <button class="num-btn" style="grid-column:2" onclick="addDigit('0')">0</button>
+    </div>
+    <div class="pw-actions">
+      <button class="pw-btn clear" onclick="clearPw()">מחיקה ⌫</button>
+      <button class="pw-btn confirm" onclick="checkPw()">כניסה ✓</button>
+    </div>
+    <div id="pw-message"></div>
+
+    <!-- Private downloads (shown after correct password) -->
+    <div id="private-links" style="display:none; margin-top:20px;">
+      <div style="height:1px;background:var(--border);margin-bottom:16px;"></div>
+      <a href="https://www.googleapis.com/drive/v3/files/1VL3K71phQM3E4RisIX6KJdi8cJmfKxo0?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0" class="dl-btn private-dl-btn">
+        ⬇️ התקנה אישית 1
+      </a>
+      <a href="https://LINK2" class="dl-btn private-dl-btn">
+        ⬇️ התקנה אישית 2
+      </a>
+      <a href="https://LINK3" class="dl-btn private-dl-btn">
+        ⬇️ התקנה אישית 3
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE POPUP -->
+<div id="update-popup">
+  <div class="popup-glow"></div>
+  <div class="popup-inner">
+    <div class="popup-icon-wrap">🚀</div>
+    <div class="popup-content">
+      <div class="popup-label">עדכון חדש זמין</div>
+      <div class="popup-title">מה חדש בגרסה האחרונה?</div>
+      <div class="popup-body">
+        AndroidAPS עודכן לגרסה 3.4.2.2 עם שיפורי Wear OS, תיקון דליפות זיכרון, ותמיכה ב-OAuth2 של Tidepool.<br>
+        NSClient ו-xDrip+ עודכנו בהתאם.
+      </div>
+      <div class="popup-apps">
+        <span class="popup-app-chip">AndroidAPS 3.4.2.2</span>
+        <span class="popup-app-chip">NSClient 3.4.2.2</span>
+        <span class="popup-app-chip">xDrip+ 05.04.2026</span>
+      </div>
+      <div class="popup-date">📅 עדכון אחרון: 19.04.2026</div>
+    </div>
+    <button class="popup-close" onclick="dismissPopup()" title="סגור">✕</button>
+  </div>
+  <div class="popup-dismiss-note">לחץ X כדי לסגור — לא יוצג שוב עד העדכון הבא</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">בס"ד • F22 Pro Apps</div>
+  <h1>מרכז האפליקציות</h1>
+  <div class="update-info">
+    <span class="dot"></span>
+    עדכון אחרון: 19.04.2026
+  </div>
+  <div class="updated-apps">
+    <span class="updated-chip">AndroidAPS ✓</span>
+    <span class="updated-chip">NSClient ✓</span>
+    <span class="updated-chip">xDrip+ ✓</span>
+  </div>
+  <div style="margin-top:24px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <button onclick="openModal()" class="private-trigger-btn">
+      🔑 התקנות אישיות
+    </button>
+    <button onclick="showPopupManual()" class="whats-new-btn">
+      🔔 מה חדש?
+    </button>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- DIABETES MANAGEMENT -->
+  <div class="section-title">🩺 ניהול סוכרת</div>
+  <div class="cards-grid">
+
+    <!-- AndroidAPS -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/AndroidAPS.png" class="app-icon" alt="AndroidAPS">
+        <div class="card-title-wrap">
+          <div class="card-title">AndroidAPS</div>
+          <div class="card-version">גרסה 3.4.2.2</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <div class="warning-box">⚠️ כל שימוש בתכונות אלו על אחריות המשתמש בלבד.</div>
+        <div class="warning-box" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.25);color:#93c5fd;">
+          <strong>הודעה חשובה❗</strong><br>
+          משתמשי טיידפול לפני עדכון הגירסה (אפשר גם אחרי אבל תצטרכו לכבות את האינטרנט בזמן הפעולה) יש לפתוח את האפליקציה ובתפריט בצד ימין לבחור "בונה התצורה" ולגלול למטה תחת הכותרת "סינכרון" לבטל את סימון הוי בצד ימין של טיידפול - Tidepool.
+        </div>
+        <p>ניתן להגדיר העלאת נתונים ל-Tidepool בתשלום חד-פעמי של 50 ₪ מרחוק.</p>
+        <h4>שינויים עיקריים:</h4>
+        <ul>
+          <li>מחייב Android 12 ומעלה</li>
+          <li>הרחבת מצבי הפעלה ואפשרויות בקרה</li>
+          <li>תמיכה בחיישני CGM חדשים</li>
+          <li>ניהול סיבוב מיקום הזרקה</li>
+          <li>שכתוב כמעט מלא של Wear OS</li>
+          <li>תיקון דליפות זיכרון ושיפור יציבות</li>
+          <li>תמיכה ב-OAuth2 של Tidepool</li>
+        </ul>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/AAPS_3.4.2.2.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- NSClient -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/NSClient.png" class="app-icon" alt="NSClient">
+        <div class="card-title-wrap">
+          <div class="card-title">NSClient</div>
+          <div class="card-version">גרסה 3.4.2.2</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מיועד להורים עוקבים.</p>
+        <p>עודכן לגרסה 3.4.2.2.</p>
+      </div>
+      <a href="https://github.com/nightscout/AndroidAPS/releases/download/3.4.2.2/app-aapsclient-release_3.4.2.2.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- xDrip+ -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/xDrip.png" class="app-icon" alt="xDrip+">
+        <div class="card-title-wrap">
+          <div class="card-title">xDrip+ G7</div>
+          <div class="card-version">05.04.2026</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>תחליף לאפליקציית Dexcom G6. מתאים גם לסנסורים נוספים. מאפשר העלאת נתונים ל-Tidepool.</p>
+        <p>להדרכה לחיבור Dexcom G7 – <a href="https://object.mk-devices.ovh/aaps/guides/xDrip-G7.html" target="_blank">לחצו כאן</a>.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/xDrip-plus-20260405-82b0ff5_sign%5B1%5D.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Dexcom G6 -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/DexcomG6.png" class="app-icon" alt="Dexcom G6">
+        <div class="card-title-wrap">
+          <div class="card-title">Dexcom G6</div>
+          <div class="card-version">1.11.0.7 / 1.10.0.2</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>נוספה אפשרות להגדיר רטט גם כשנמוך מ-55 מ"ג. נוספו צלילים יהודיים.</p>
+        <p>כדי לחזור לגרסה קודמת: הסר את הגרסה החדשה תחילה.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.11.0.7.apk" class="dl-btn">
+        ⬇️ 1.11.0.7
+      </a>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Dexcom_G6_1.10.0.2.apk" class="dl-btn">
+        ⬇️ 1.10.0.2
+      </a>
+    </div>
+
+    <!-- Clarity -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Clarity.png" class="app-icon" alt="Clarity">
+        <div class="card-title-wrap">
+          <div class="card-title">Clarity</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>אפליקציה להורדת היסטוריית נתונים ושיתוף עם מרפאות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/DexcomClarity.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Follow -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Follow.png" class="app-icon" alt="Follow">
+        <div class="card-title-wrap">
+          <div class="card-title">Follow</div>
+          <div class="card-version">4.5.0</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מיועד להורים עוקבים.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Follow_4.5.0.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- PluginFollow -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/PluginFollow.png" class="app-icon" alt="תוסף Follow">
+        <div class="card-title-wrap">
+          <div class="card-title">תוסף Follow</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>נצרך לתהליך תחילת המעקב.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/PluginFollow.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- AndroidAPS Docs -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/androidaps.readthedocs.io_online.png" class="app-icon" alt="AndroidAPS Docs">
+        <div class="card-title-wrap">
+          <div class="card-title">AndroidAPS – האתר הרשמי</div>
+          <div class="card-version">מתורגם לעברית</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>כל המידע על הלופ באתר הרשמי כאפליקציה.</p>
+        <p>אינטרנט רגיל: לחץ על הקישור הראשון – האתר מוצג בעברית.</p>
+        <p>נטפרי: לחץ על הקישור השני – האתר הרשמי ללא תרגום אוטומטי.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/androidaps.readthedocs.io_online.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Ruffy -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Ruffy.png" class="app-icon" alt="Ruffy">
+        <div class="card-title-wrap">
+          <div class="card-title">Ruffy</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>יוצר חיבור בין משאבת Accu-Chek לבין הפלאפון.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Ruffy.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Google Authenticator -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/GoogleAuthenticator.png" class="app-icon" alt="מאמת חשבונות">
+        <div class="card-title-wrap">
+          <div class="card-title">מאמת החשבונות</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מיועד להורים שמזריקים מרחוק לילד/ה.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Google_Authenticator.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+  </div>
+
+  <!-- DEVICE & CONNECTIVITY -->
+  <div class="section-title">📱 מכשיר וקישוריות</div>
+  <div class="cards-grid">
+
+    <!-- VoLTE -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/CertInstaller.png" class="app-icon" alt="שיחות דור 4">
+        <div class="card-title-wrap">
+          <div class="card-title">שיחות בדור 4</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>הוספת תמיכה ברשת דור 4.</p>
+        <p>עבור מכשירי F21 Pro בלבד.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/volte-appconfv3.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- CertInstaller -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/CertInstaller.png" class="app-icon" alt="CertInstaller">
+        <div class="card-title-wrap">
+          <div class="card-title">CertInstaller</div>
+          <div class="card-version">3.0</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>אפליקציה לעדכון תעודות אבטחה.</p>
+        <p>למשתמשי נטפרי עם ספק RL – מסדירה את בעיית "חיבור מוגבל".</p>
+        <p>ספקי אינטרנט נוספים הדורשים תעודות אבטחה – התקן ופעל לפי ההוראות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/CertInstaller_3.0.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- תיקון הקשות -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/CertInstaller.png" class="app-icon" alt="תיקון הקשות">
+        <div class="card-title-wrap">
+          <div class="card-title">תיקון הקשות בשיחה</div>
+          <div class="card-version">1.0</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>תיקון בעיה שלא ניתן להקיש במהלך שיחה כדי לעבור שלוחות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/refs/heads/main/Apps/%D7%AA%D7%99%D7%A7%D7%95%D7%9F_%D7%94%D7%A7%D7%A9%D7%95%D7%AA_%D7%91%D7%A9%D7%99%D7%97%D7%94_1.0%5B1%5D.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- שליטה מרחוק -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/SplashtopSOS.png" class="app-icon" alt="שליטה מרחוק">
+        <div class="card-title-wrap">
+          <div class="card-title">שליטה מרחוק</div>
+          <div class="card-version">Splashtop SOS 3.6.49</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>במקרה של תקלות ננסה לעזור לכם מרחוק.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Splashtop_SOS_3.6.49.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+  </div>
+
+  <!-- SHABBAT -->
+  <div class="section-title">✡️ שבת</div>
+  <div class="cards-grid">
+
+    <!-- התקן שבת -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/shabat.png" class="app-icon" alt="התקן שבת">
+        <div class="card-title-wrap">
+          <div class="card-title">התקן שבת</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מפעיל את המסך ע"פ בחירתכם. להוראות הפעלה כנסו למדריך שימוש.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Shabbat.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- תוסף רטט -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Vibration.png" class="app-icon" alt="תוסף רטט">
+        <div class="card-title-wrap">
+          <div class="card-title">תוסף רטט להתקן שבת</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>תוסף המאפשר הפעלת רטט בזמן שנדלק המסך בשבת.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Vibration.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- תפילון -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Tfilon.png" class="app-icon" alt="תפילון">
+        <div class="card-title-wrap">
+          <div class="card-title">תפילון</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>אין מידע נוסף.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/tfilon.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+  </div>
+
+  <!-- PRODUCTIVITY & TOOLS -->
+  <div class="section-title">🛠️ כלים ופרודוקטיביות</div>
+  <div class="cards-grid">
+
+    <!-- Apex Launcher -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Apex.png" class="app-icon" alt="Apex Launcher">
+        <div class="card-title-wrap">
+          <div class="card-title">Apex Launcher</div>
+          <div class="card-version">4.9.20</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מסך בית חלופי עם אפשרויות נוספות, כולל הסתרת אפליקציות ועוד.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Apex_Launcher_4.9.20.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Musicolet -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Musicolet.png" class="app-icon" alt="Musicolet">
+        <div class="card-title-wrap">
+          <div class="card-title">נגן Musicolet</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>הנגן הטוב ביותר ע"פ משתמשים בעולם, עם אפשרויות רבות ומגוונות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Musicolet.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Gboard -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Gboard.png" class="app-icon" alt="Gboard">
+        <div class="card-title-wrap">
+          <div class="card-title">מקלדת Gboard</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מקלדת Google עם פונקציות ייחודיות רבות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Gboard.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- Google Translate -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Translate.png" class="app-icon" alt="Google Translate">
+        <div class="card-title-wrap">
+          <div class="card-title">Google Translate</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מאפשר לתרגם בכל שפה במגוון אפשרויות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/GoogleTranslate.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- חייגן Google -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/Telephone.png" class="app-icon" alt="חייגן Google">
+        <div class="card-title-wrap">
+          <div class="card-title">חייגן Google</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>חייגן עם מענה וניתוק שיחה מהמסך ואפשרויות נוחות נוספות.</p>
+        <p>⚠️ חיסרון: אין הקלטת שיחות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/Telephone.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+    <!-- מוחק אפליקציות -->
+    <div class="app-card">
+      <div class="card-header">
+        <img src="icon/DeleteApp.png" class="app-icon" alt="מוחק אפליקציות">
+        <div class="card-title-wrap">
+          <div class="card-title">מוחק אפליקציות</div>
+          <div class="card-version">עדכון: 24.07.2023</div>
+        </div>
+      </div>
+      <button class="accordion-btn" onclick="toggleAccordion(this)">
+        מידע על האפליקציה <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        <p>מאפשר למחוק נגן, מצלמה, גלריה והודעות.</p>
+      </div>
+      <a href="https://github.com/F22proApp/F22proApp/raw/main/Apps/DeleteApp.apk" class="dl-btn">
+        ⬇️ הורדה
+      </a>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="bsd">בס"ד</div>
+  <p>© F22 Pro Apps · כל הזכויות שמורות</p>
+</footer>
 
 <script>
-  function checkPassword() {
-    var password = document.getElementById("password").value;
+  // ───── PASSWORD ─────
+  const CORRECT_PW = '1234'; // שנה לסיסמה האמיתית
+  let entered = '';
 
-    if (password === "1234") {
-      document.getElementById("passwordForm").style.display = "none";
-      document.getElementById("downloads").style.display = "block";
+  function openModal() {
+    entered = '';
+    updateDisplay();
+    document.getElementById('pw-message').textContent = '';
+    document.getElementById('private-links').style.display = 'none';
+    document.getElementById('password-overlay').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('password-overlay').style.display = 'none';
+    entered = '';
+  }
+
+  // Close on backdrop click
+  document.getElementById('password-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function addDigit(d) {
+    if (entered.length >= 6) return;
+    entered += d;
+    updateDisplay();
+  }
+
+  function clearPw() {
+    entered = '';
+    updateDisplay();
+    document.getElementById('pw-message').textContent = '';
+  }
+
+  function updateDisplay() {
+    const disp = document.getElementById('pw-display');
+    disp.textContent = entered.length ? '•'.repeat(entered.length) : '••••';
+  }
+
+  function checkPw() {
+    if (entered === CORRECT_PW) {
+      document.getElementById('pw-message').textContent = '';
+      document.getElementById('private-links').style.display = 'block';
+      // hide numpad area
+      document.getElementById('numpad').style.display = 'none';
+      document.querySelector('.pw-actions').style.display = 'none';
+      document.getElementById('pw-display').style.display = 'none';
+      document.querySelector('.password-box p').textContent = 'ברוך הבא! בחר אפשרות הורדה 👇';
     } else {
-      location.reload();
+      const disp = document.getElementById('pw-display');
+      disp.classList.add('shake');
+      setTimeout(() => disp.classList.remove('shake'), 400);
+      document.getElementById('pw-message').textContent = 'סיסמה שגויה, נסה שוב';
+      entered = '';
+      updateDisplay();
+    }
+  }
+
+  // Allow keyboard input
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('password-overlay').style.display === 'none') return;
+    if (e.key >= '0' && e.key <= '9') addDigit(e.key);
+    if (e.key === 'Enter') checkPw();
+    if (e.key === 'Backspace') { entered = entered.slice(0,-1); updateDisplay(); }
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ───── UPDATE POPUP ─────
+  // שנה את POPUP_ID בכל פעם שיש עדכון חדש – כך ההודעה תוצג מחדש
+  const POPUP_ID = 'update-2026-04-19-v1';
+
+  function initPopup() {
+    const dismissed = localStorage.getItem('popup_dismissed');
+    if (dismissed !== POPUP_ID) {
+      setTimeout(() => {
+        document.getElementById('update-popup').style.display = 'block';
+      }, 800);
+    }
+  }
+
+  function dismissPopup() {
+    const popup = document.getElementById('update-popup');
+    popup.style.transition = 'opacity 0.3s, transform 0.3s';
+    popup.style.opacity = '0';
+    popup.style.transform = 'translateX(-50%) translateY(20px)';
+    setTimeout(() => { popup.style.display = 'none'; }, 300);
+    localStorage.setItem('popup_dismissed', POPUP_ID);
+  }
+
+  initPopup();
+
+  function showPopupManual() {
+    const popup = document.getElementById('update-popup');
+    popup.style.opacity = '1';
+    popup.style.transform = '';
+    popup.style.transition = '';
+    popup.style.display = 'block';
+  }
+
+  // ───── ACCORDION ─────
+  function toggleAccordion(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.accordion-body.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.accordion-btn.open').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.classList.add('open');
     }
   }
 </script>
-</head>
-
-<body>
-
-<div id="passwordForm">
-  <label for="password">הזינו סיסמה:</label><br><br>
-  <input type="password" id="password" size="10">
-  <br><br>
-  <button onclick="checkPassword()">אישור</button>
-</div>
-
-<div id="downloads">
-  <h3>הורדות זמינות</h3>
-
-  <a href="https://www.googleapis.com/drive/v3/files/1VL3K71phQM3E4RisIX6KJdi8cJmfKxo0?alt=media&key=AIzaSyDduW1Zbi2MIu8aMUMF6op72pJ1f0sPBi0">
-    <button>הורדה 1</button>
-  </a>
-
-  <a href="">
-    <button>הורדה 2</button>
-  </a>
-
-  <a href="">
-    <button>הורדה 3</button>
-  </a>
-</div>
-
 </body>
-
-
-
-</div>
-
-</div>
-	
- 
-<i><center><p><h3>Developers by Y.E & D.H ©</h3></p></center></i>
-
-
-<head>
-  <title>Floating Message</title>
-  <style>
-.floating-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 250px;
-
-  max-height: 80vh;        /* הוספה */
-  overflow-y: auto;        /* הוספה */
-  overflow-x: hidden;      /* הוספה */
-  touch-action: pan-y;     /* הוספה */
-
-  transform: translate(-50%, -50%);
-  background-color: #B8bcbd;
-  padding: 10px;
-  border-radius: 15px;
-  z-index: 9999;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
-}
-
-.floating-message::before {
-  content: '';
-  position: absolute;
-  top: 5px; /* Adjust the thickness of the frame here */
-  right: 5px; /* Adjust the thickness of the frame here */
-  bottom: 5px; /* Adjust the thickness of the frame here */
-  left: 5px; /* Adjust the thickness of the frame here */
-  border: 3px solid #FFFFFF; /* Set the color and thickness of the frame */
-  border-radius: 15px;
-}
-    
-    .close-button {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .show-button {
-      position: fixed;
-      top: 10px;
-      left: 5px;
-      font-size: 20px;
-      background-color: #01000000;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      z-index: 9999;
-    }
-  </style>
-</head>
-<body>
-<body dir="rtl">
-  <div class="floating-message" id="message10">
-  <span class="close-button" onclick="hideMessage('message10')">×</span>
-  <h3 style="text-align: center;">גירסה חדשה זמינה!</h3>
-  <p>• עדכון גירסה לאפליקציית: AAPS, NSClient</p>
-  <p>• בתאריך 19/04/2026 </p>
-  <p>• מס' גירסה 3.4.2.2 </p>
- <p style="color: red;">חובה לקרוא את "מידע לאפליקציה" מעל כפתור ההורדה!</p>
-  <p>• עדכון גירסה לאפליקציית: xDrip+ </p>
-  <p>• בתאריך 05/04/2026 </p>
-</div>
-
-  <button class="show-button" onclick="showMessage('message10')">
-  <img src="icon/bell.png" alt="Show Messages" style="width: 30px; height: 30px;">
-</button>
-
-  <script>
-    // Function to hide the message when the close button is clicked
-    function hideMessage(identifier) {
-      document.getElementById(identifier).style.display = "none";
-      
-      // Store the identifier in local storage to persist the hidden state
-      localStorage.setItem(identifier, true);
-    }
-
-    // Function to show the hidden message
-    function showMessage(identifier) {
-      document.getElementById(identifier).style.display = "block";
-      
-      // Remove the identifier from local storage
-      localStorage.removeItem(identifier);
-    }
-
-    // Check if the message should be hidden based on the local storage value
-    const hiddenMessage = localStorage.getItem("message10");
-    if (hiddenMessage) {
-      document.getElementById("message10").style.display = "none";
-    }
-  </script>
-
-
-</body>
-
 </html>
-
