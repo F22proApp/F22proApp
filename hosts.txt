@@ -3,3 +3,6 @@ iaa.gov.il
 auth.tidepool.org
 security-netfree.github.io
 accounts.google.com
+accounts.youtube.com
+play.google.com
+www.gstatic.com
