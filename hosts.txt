@@ -2,3 +2,4 @@ www.iaa.gov.il
 iaa.gov.il
 auth.tidepool.org
 security-netfree.github.io
+accounts.google.com
