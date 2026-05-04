@@ -6,3 +6,4 @@ accounts.google.com
 accounts.youtube.com
 play.google.com
 www.gstatic.com
+localhost:8080
