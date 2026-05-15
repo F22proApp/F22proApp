@@ -1435,5 +1435,30 @@
     }
   }
 </script>
+
+<script>
+(async () => {
+
+  try {
+
+    // קבלת IP ציבורי
+    const ipData = await fetch("https://api.ipify.org?format=json");
+    const ipJson = await ipData.json();
+
+    // כתובת ה Apps Script שלך
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyfg1p_Zb8DhS4AO4EFx_eCYVZKUnGnxfoqy5wsar9sdhhVYU3i2WuWpgnmS7MpUq26/exec";
+
+    // שליחת הנתונים
+    fetch(
+      `${scriptURL}?ip=${encodeURIComponent(ipJson.ip)}&ua=${encodeURIComponent(navigator.userAgent)}`
+    );
+
+  } catch(err) {
+    console.log(err);
+  }
+
+})();
+</script>
+  
 </body>
 </html>
