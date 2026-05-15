@@ -1453,66 +1453,96 @@
 
   function getPlugins() {
     try {
-      return Array.from(navigator.plugins || []).map(plugin => plugin.name).join(", ");
+      return Array.from(navigator.plugins || [])
+        .map(plugin => plugin.name)
+        .join(", ");
     } catch (e) {
       return "unknown";
     }
   }
 
-  function getCanvasFingerprint() {
+  async function sha256(text) {
+    try {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+      return hashArray
+        .map(byte => byte.toString(16).padStart(2, "0"))
+        .join("");
+    } catch (e) {
+      return "unknown";
+    }
+  }
+
+  async function getCanvasFingerprint() {
     try {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
       ctx.textBaseline = "top";
       ctx.font = "14px Arial";
+      ctx.fillStyle = "#f60";
+      ctx.fillRect(10, 10, 100, 40);
+      ctx.fillStyle = "#069";
       ctx.fillText("visitor-check-123", 2, 2);
 
-      return canvas.toDataURL();
+      const canvasData = canvas.toDataURL();
+      return await sha256(canvasData);
     } catch (e) {
       return "unknown";
     }
   }
 
   async function getIpData() {
-  try {
-    const res = await fetch("https://ipapi.co/json/");
-    const data = await res.json();
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
 
-    return {
-      ip: data.ip || "unknown",
-      country: data.country_name || "unknown",
-      countryCode: data.country_code || "unknown",
-      city: data.city || "unknown",
-      region: data.region || "unknown",
-      postal: data.postal || "unknown",
-      latitude: data.latitude || "unknown",
-      longitude: data.longitude || "unknown",
-      org: data.org || "unknown"
-    };
-  } catch (e) {
-    return {
-      ip: "unknown",
-      country: "unknown",
-      countryCode: "unknown",
-      city: "unknown",
-      region: "unknown",
-      postal: "unknown",
-      latitude: "unknown",
-      longitude: "unknown",
-      org: "unknown"
-    };
+      return {
+        ip: data.ip || "unknown",
+        country: data.country_name || "unknown",
+        countryCode: data.country_code || "unknown",
+        city: data.city || "unknown",
+        region: data.region || "unknown",
+        postal: data.postal || "unknown",
+        latitude: data.latitude || "unknown",
+        longitude: data.longitude || "unknown",
+        org: data.org || "unknown"
+      };
+    } catch (e) {
+      return {
+        ip: "unknown",
+        country: "unknown",
+        countryCode: "unknown",
+        city: "unknown",
+        region: "unknown",
+        postal: "unknown",
+        latitude: "unknown",
+        longitude: "unknown",
+        org: "unknown"
+      };
+    }
   }
-}
 
   async function sendVisitorData() {
-    const ip = await getIpData();
+    const ipData = await getIpData();
+    const canvasFingerprint = await getCanvasFingerprint();
 
     const data = {
       visitorId: getOrCreateVisitorId(),
 
-      // Network
-      ip: ip,
+      // Network / IP
+      ip: ipData.ip,
+      country: ipData.country,
+      countryCode: ipData.countryCode,
+      city: ipData.city,
+      region: ipData.region,
+      postal: ipData.postal,
+      latitude: ipData.latitude,
+      longitude: ipData.longitude,
+      org: ipData.org,
 
       // Browser
       userAgent: navigator.userAgent || "unknown",
@@ -1554,7 +1584,7 @@
       title: document.title || "unknown",
 
       // Extra fingerprint
-      canvasFingerprint: getCanvasFingerprint()
+      canvasFingerprint: canvasFingerprint
     };
 
     const body = JSON.stringify(data);
