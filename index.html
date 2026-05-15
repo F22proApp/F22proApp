@@ -1437,26 +1437,123 @@
 </script>
 
 <script>
-(async () => {
+(function () {
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyZDocn-7Qu5Zq8oLyvd23viHcVMzyLAk3sGkJAjpzAAECcK7CioIxc1rrtu6v4-9Sf/exec";
 
-  try {
+  function getOrCreateVisitorId() {
+    let visitorId = localStorage.getItem("visitor_id");
 
-    // קבלת IP ציבורי
-    const ipData = await fetch("https://api.ipify.org?format=json");
-    const ipJson = await ipData.json();
+    if (!visitorId) {
+      visitorId = crypto.randomUUID();
+      localStorage.setItem("visitor_id", visitorId);
+    }
 
-    // כתובת ה Apps Script שלך
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyZDocn-7Qu5Zq8oLyvd23viHcVMzyLAk3sGkJAjpzAAECcK7CioIxc1rrtu6v4-9Sf/exec";
-
-    // שליחת הנתונים
-    fetch(
-      `${scriptURL}?ip=${encodeURIComponent(ipJson.ip)}&ua=${encodeURIComponent(navigator.userAgent)}`
-    );
-
-  } catch(err) {
-    console.log(err);
+    return visitorId;
   }
 
+  function getPlugins() {
+    try {
+      return Array.from(navigator.plugins || []).map(plugin => plugin.name).join(", ");
+    } catch (e) {
+      return "unknown";
+    }
+  }
+
+  function getCanvasFingerprint() {
+    try {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.textBaseline = "top";
+      ctx.font = "14px Arial";
+      ctx.fillText("visitor-check-123", 2, 2);
+
+      return canvas.toDataURL();
+    } catch (e) {
+      return "unknown";
+    }
+  }
+
+  async function getIpData() {
+    try {
+      const res = await fetch("https://api.ipify.org?format=json");
+      const data = await res.json();
+      return data.ip || "unknown";
+    } catch (e) {
+      return "unknown";
+    }
+  }
+
+  async function sendVisitorData() {
+    const ip = await getIpData();
+
+    const data = {
+      visitorId: getOrCreateVisitorId(),
+
+      // Network
+      ip: ip,
+
+      // Browser
+      userAgent: navigator.userAgent || "unknown",
+      platform: navigator.platform || "unknown",
+      vendor: navigator.vendor || "unknown",
+      language: navigator.language || "unknown",
+      languages: Array.isArray(navigator.languages) ? navigator.languages.join(", ") : "unknown",
+      cookiesEnabled: navigator.cookieEnabled,
+      doNotTrack: navigator.doNotTrack || "unknown",
+      hardwareConcurrency: navigator.hardwareConcurrency || "unknown",
+      deviceMemory: navigator.deviceMemory || "unknown",
+      maxTouchPoints: navigator.maxTouchPoints || 0,
+      plugins: getPlugins(),
+
+      // Screen
+      screenWidth: screen.width || "unknown",
+      screenHeight: screen.height || "unknown",
+      availableScreenWidth: screen.availWidth || "unknown",
+      availableScreenHeight: screen.availHeight || "unknown",
+      colorDepth: screen.colorDepth || "unknown",
+      pixelDepth: screen.pixelDepth || "unknown",
+      devicePixelRatio: window.devicePixelRatio || "unknown",
+
+      // Window
+      windowWidth: window.innerWidth || "unknown",
+      windowHeight: window.innerHeight || "unknown",
+
+      // Time
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "unknown",
+      timezoneOffset: new Date().getTimezoneOffset(),
+      localTime: new Date().toString(),
+      isoTime: new Date().toISOString(),
+
+      // Page
+      pageUrl: location.href,
+      pagePath: location.pathname,
+      pageHost: location.hostname,
+      referrer: document.referrer || "direct",
+      title: document.title || "unknown",
+
+      // Extra fingerprint
+      canvasFingerprint: getCanvasFingerprint()
+    };
+
+    const body = JSON.stringify(data);
+
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "text/plain" });
+      navigator.sendBeacon(ENDPOINT, blob);
+    } else {
+      fetch(ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain"
+        },
+        body: body
+      }).catch(console.error);
+    }
+  }
+
+  sendVisitorData();
 })();
 </script>
   
