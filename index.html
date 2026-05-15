@@ -1475,14 +1475,35 @@
   }
 
   async function getIpData() {
-    try {
-      const res = await fetch("https://api.ipify.org?format=json");
-      const data = await res.json();
-      return data.ip || "unknown";
-    } catch (e) {
-      return "unknown";
-    }
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+
+    return {
+      ip: data.ip || "unknown",
+      country: data.country_name || "unknown",
+      countryCode: data.country_code || "unknown",
+      city: data.city || "unknown",
+      region: data.region || "unknown",
+      postal: data.postal || "unknown",
+      latitude: data.latitude || "unknown",
+      longitude: data.longitude || "unknown",
+      org: data.org || "unknown"
+    };
+  } catch (e) {
+    return {
+      ip: "unknown",
+      country: "unknown",
+      countryCode: "unknown",
+      city: "unknown",
+      region: "unknown",
+      postal: "unknown",
+      latitude: "unknown",
+      longitude: "unknown",
+      org: "unknown"
+    };
   }
+}
 
   async function sendVisitorData() {
     const ip = await getIpData();
