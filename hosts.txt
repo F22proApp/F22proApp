@@ -5,3 +5,4 @@ localhost:8080
 about:blank
 f22proapp.github.io -true
 david1hazan.github.io -true
+sms://+972539001113?body=Send%20this%20message%20without%20editing.%20(mxWPTxBRMQFJ)
