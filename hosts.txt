@@ -6,3 +6,4 @@ accounts.google.com
 #www.gstatic.com
 localhost:8080
 about:blank
+f22proapp.github.io -true
