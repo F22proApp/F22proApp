@@ -1,9 +1,7 @@
 auth.tidepool.org
 security-netfree.github.io
 accounts.google.com
-#accounts.youtube.com
-#play.google.com
-#www.gstatic.com
 localhost:8080
 about:blank
 f22proapp.github.io -true
+david1hazan.github.io -true
