@@ -1,1 +1,2 @@
 davidhazan.nscout.co.il -true
+reuven.nscout.co.il -true
