@@ -4,3 +4,4 @@ rikisinger.nscout.co.il -true
 moshe.my.nightscoutpro.com -true
 simchacohen.nscout.co.il -true
 yocheved.my.nightscoutpro.com -true
+miri.my.nightscoutpro.com -true
