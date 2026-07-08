@@ -1,0 +1,12 @@
+info.nightscout.androidaps
+com.dexcom.g7
+com.eveningoutpost.dexdrip
+mk.system.loop
+info.nightscout.aapsclient
+com.dexcom.g6.region3.mgdl
+com.aistudio.dexcomclarity.vwxqpy
+com.goldplay.mk.system.hosts
+com.da.suceretservise
+com.kosherbrowser.nightscout
+com.tidbrowser
+com.hoptodesk.app
