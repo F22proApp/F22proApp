@@ -7,3 +7,4 @@ yocheved.my.nightscoutpro.com -true
 miri.my.nightscoutpro.com -true
 avigailm.nscout.co.il -true
 cgm-remote-monitor-qhs9.onrender.com -true
+ayrrubin.my.nightscoutpro.com -true
