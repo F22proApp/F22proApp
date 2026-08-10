@@ -1,2 +1,2 @@
-DPC-samsung_sm-s921b-0a615a2a6550ab4d-dc6b8db2 - true
+DPC-samsung_sm-s921b-0a615a2a6550ab4d-dc6b8db2 - true dev
 DPC-wheatek_k16-090f9ef9da5a8e3c-f8519d77 - true
