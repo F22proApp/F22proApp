@@ -9,3 +9,4 @@ avigailm.nscout.co.il -true
 cgm-remote-monitor-qhs9.onrender.com -true
 ayrrubin.my.nightscoutpro.com -true
 baruch.my.nightscoutpro.com -true
+miryam.my.nightscoutpro.com -true
