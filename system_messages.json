@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "messages": [
     {
-      "id": "msg_000001",
-      "revision": 1,
-      "publishedAt": "2026-09-17T16:30:00+03:00",
-      "enabled": true,
-      "title": "",
-      "html": "<style>.msg{direction:rtl;text-align:center;padding:20px}.msg h1{font-size:28px;color:#d4af37}.msg img{width:80%;max-width:500px;height:auto;border-radius:18px}.msg p{font-size:18px;line-height:1.7}</style><div class='msg'><h1>הודעת חג</h1><img src='https://1drv.ms/i/c/3442d4925aac107b/IQBVQQXf0DbeQIjlG6379ZfGAdrZpzizFrxyi1Tfo-vk4NU?e=c43R5d'><p>מאחלים לכם גמר חתימה טובה!</p></div>"
-    },
+  "id": "msg_000001",
+  "revision": 1,
+  "publishedAt": "2026-09-17T16:30:00+03:00",
+  "enabled": true,
+  "title": "",
+  "html": "<img src='https://1drv.ms/i/c/3442d4925aac107b/IQBVQQXf0DbeQIjlG6379ZfGAdrZpzizFrxyi1Tfo-vk4NU?e=c43R5d&download=1' style='display:block;width:100%;height:auto;margin:0;'>"
+},
     {
       "id": "msg_000002",
       "revision": 1,
