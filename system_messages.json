@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "messages": [
     {
-  "id": "msg_000001",
-  "revision": 1,
-  "publishedAt": "2026-09-17T16:30:00+03:00",
-  "enabled": true,
-  "title": "",
-  "html": "<img src='https://github.com/F22proApp/F22proApp/raw/refs/heads/main/icon/ChatGPT%20Image%20Sep%2017,%202026,%2005_06_51%20PM.png' style='display:block;width:100%;height:auto;margin:0;'>"
-}
+      "id": "msg_000001",
+      "revision": 1,
+      "publishedAt": "2026-09-17T16:30:00+03:00",
+      "enabled": true,
+      "title": "",
+      "html": "<style>html,body{margin:0;padding:0;background:transparent;}img{display:block;width:100%;height:auto;margin:0;padding:0;}</style><img src='https://raw.githubusercontent.com/F22proApp/F22proApp/main/icon/ChatGPT%20Image%20Sep%2017%2C%202026%2C%2005_06_51%20PM.png'>"
+    }
   ]
 }
