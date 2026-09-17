@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "messages": [
+    {
+      "id": "msg_000001",
+      "revision": 1,
+      "publishedAt": "2026-09-17T16:30:00+03:00",
+      "enabled": true,
+      "title": "הודעת חג",
+      "html": "<style>.msg{direction:rtl;text-align:center;padding:20px}.msg h1{font-size:28px;color:#d4af37}.msg img{width:80%;max-width:500px;height:auto;border-radius:18px}.msg p{font-size:18px;line-height:1.7}</style><div class='msg'><h1>הודעת חג</h1><img src='https://YOUR-SERVER.com/messages/images/holiday-message.webp'><p>מאחלים לכם גמר חתימה טובה!</p></div>"
+    },
+    {
+      "id": "msg_000002",
+      "revision": 1,
+      "publishedAt": "2026-09-20T10:00:00+03:00",
+      "enabled": false,
+      "title": "שנה טובה",
+      "html": "<style>.msg{direction:rtl;text-align:center;padding:25px;background:#111;color:#fff;border-radius:20px}.msg h1{font-size:32px;color:#d4af37}.msg img{width:100%;max-width:600px;height:auto;border-radius:20px}.msg p{font-size:19px;line-height:1.8}</style><div class='msg'><img src='https://YOUR-SERVER.com/messages/images/new-year.webp'><h1>שנה טובה ומתוקה</h1><p>מאחלים לכם שנה טובה, בריאה ומוצלחת.</p></div>"
+    }
+  ]
+}
